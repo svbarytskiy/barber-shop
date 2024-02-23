@@ -6,11 +6,13 @@ import fileUpload from 'express-fileupload'
 
 import authRoute from './routes/auth.js'
 import barberRoute from './routes/barber.js'
+import weekRoute from './routes/week.js'
+import messageRoute from './routes/message.js'
 const app = express()
 dotenv.config()
 
 // Constants
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3005
 const DB_USER = process.env.DB_USER
 const DB_PASSWORD = process.env.DB_PASSWORD
 const DB_NAME = process.env.DB_NAME
@@ -28,7 +30,8 @@ app.use('/static', express.static('uploads'));
 // http://localhost:3002
 app.use('/api/auth', authRoute)
 app.use('/api/barber', barberRoute)
-// app.use('/api/comments', commentRoute)
+app.use('/api/week', weekRoute)
+app.use('/api/msg', messageRoute)
 
 async function start() {
     try {

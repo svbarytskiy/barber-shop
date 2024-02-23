@@ -2,6 +2,7 @@ import BarberService from '../services/barber/barber-service.js'
 import { validationResult } from 'express-validator';
 import ApiError from '../exceptions/api-error.js';
 
+
 class BarberController {
     async registration(req, res, next) {
         try {
@@ -77,6 +78,8 @@ class BarberController {
             next(e);
         }
     }
+
+  
 }
 
 export default new BarberController();

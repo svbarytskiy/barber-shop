@@ -1,14 +1,12 @@
-import { observable, observe } from 'mobx'
-import React, { useState, useEffect, FunctionComponent } from 'react'
+import  { useState, useEffect, FunctionComponent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { observer } from "mobx-react-lite";
-import { useContext } from 'react';
-import { Context } from '../../index';
 import FormInput from '../../comon/ui/FormInput/FormInput';
 import DoButton from '../../comon/ui/DoButton/DoButton';
+import { useStore } from '../../hooks/useStore';
 
 const LoginForm: FunctionComponent = () => {
-    const { store } = useContext(Context);
+    const { store } = useStore();
     const [password, setPassword] = useState<string>('')
     const [phoneNumber, setPhoneNumber] = useState<string>('')
     const navigate = useNavigate()
@@ -20,7 +18,7 @@ const LoginForm: FunctionComponent = () => {
 
     const handleSubmit = () => {
         try {
-            store.auth.login(phoneNumber, password);
+            store.auth.loginUser(phoneNumber, password);
             setPassword('')
             setPhoneNumber('')
         } catch (error) {

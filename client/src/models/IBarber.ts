@@ -17,7 +17,7 @@ interface IMessage {
 interface IWeek {
 
 }
-interface IService {
+export interface IService {
     haircut: boolean;
     hairDyeing: boolean;
     pedicure: boolean;

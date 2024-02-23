@@ -30,6 +30,9 @@ const Navbar = () => {
                     {userStatus === 'Admin' && (
                         <NavItem navPath={`/admin`} navText='Admin' />
                     )}
+                    {userStatus === 'Barber' && (
+                        <NavItem navPath={`/barberSchedule/:${userid}`} navText='Розклад' />
+                    )}
                 </ul>
             )}
             {isAuth ? (

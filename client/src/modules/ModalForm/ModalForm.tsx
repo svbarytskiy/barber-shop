@@ -52,7 +52,7 @@ const ModalForm: FC = () => {
                 console.log('ррррррррррррррр')
             }
 
-            await store.barberAuth.registration(formData);
+            await store.auth.registrationBarber(formData);
             closeModal();
             setDefaultState();
             store.barber.getAllBarbers();

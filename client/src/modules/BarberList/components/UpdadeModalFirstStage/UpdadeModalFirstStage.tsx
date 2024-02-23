@@ -38,7 +38,7 @@ const UpdateModalFirstStage: FC<UpdateModalFirstStageProps> = ({
                     <img src={URL.createObjectURL(newImage)}
                         alt={newImage.name} />
                 ) : (
-                    <img src={`http://localhost:3008/static/${phoneNumber}/${image}`} alt={image?.name} />
+                    <img src={`http://localhost:3009/static/${phoneNumber}/${image}`} alt={image?.name} />
                 )}
             </div>
             <div className='flex max-w-sm space-x-4'>

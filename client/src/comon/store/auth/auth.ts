@@ -1,9 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 import { IUser } from "../../../models/IUser";
 import AuthService from '../../services/authService';
+import { IBarber } from '../../../models/IBarber';
+import BarberAuthService from '../../services/barberAuthService';
+
 
 export default class AuthStore {
-    user = {} as IUser;
+    user = {} as IUser | IBarber;
     isAuth = false;
     isLoading = false;
     token: string | null = null;
@@ -16,7 +19,7 @@ export default class AuthStore {
         this.isAuth = bool;
     }
 
-    setUser(user: IUser) {
+    setUser(user: IUser | IBarber) {
         this.user = user;
     }
 
@@ -27,7 +30,7 @@ export default class AuthStore {
         this.token = token;
     }
 
-    async login(phoneNumber: string, password: string) {
+    async loginUser(phoneNumber: string, password: string) {
         try {
             const response = await AuthService.login(phoneNumber, password);
             if (response.data.user) {
@@ -35,13 +38,13 @@ export default class AuthStore {
                 this.setUser(response.data.user);
             }
             if (response.data.token) {
-                window.localStorage.setItem('token', response.data.token)
+                window.localStorage.setItem('userToken', response.data.token)
             }
         } catch (e: any) {
             console.log(e.response?.data?.message);
         }
     }
-    async registration(username: string, password: string, phoneMumber: string) {
+    async registrationUser(username: string, password: string, phoneMumber: string) {
         try {
             const response = await AuthService.registration(username, password, phoneMumber);
             console.log(response)
@@ -49,7 +52,7 @@ export default class AuthStore {
                 this.setAuth(true);
                 this.setUser(response.data.user);
                 if (response.data.token) {
-                    window.localStorage.setItem('token', response.data.token)
+                    window.localStorage.setItem('userToken', response.data.token)
                 }
             }
         } catch (e: any) {
@@ -59,7 +62,8 @@ export default class AuthStore {
     async logout() {
         this.setLoading(true);
         try {
-            localStorage.removeItem('token');
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('barberToken');
             this.setAuth(false);
             this.setUser({} as IUser);
             this.setToken(null);
@@ -69,7 +73,7 @@ export default class AuthStore {
             this.setLoading(false);
         }
     }
-    async checkAuth() {
+    async checkAuthUser() {
         this.setLoading(true);
         try {
             const response = await AuthService.checkAuth();
@@ -77,10 +81,10 @@ export default class AuthStore {
                 this.setAuth(true);
                 this.setUser(response.data.user);
                 if (response.data.token) {
-                    window.localStorage.setItem('token', response.data.token)
+                    window.localStorage.setItem('userToken', response.data.token)
                 }
             } else {
-                localStorage.removeItem('token');
+                localStorage.removeItem('userToken');
                 this.setAuth(false);
                 this.setUser({} as IUser);
                 this.setToken(null);
@@ -99,8 +103,61 @@ export default class AuthStore {
                 this.setAuth(true);
                 this.setUser(response.data.user);
                 if (response.data.token) {
-                    window.localStorage.setItem('token', response.data.token)
+                    window.localStorage.setItem('userToken', response.data.token)
                 }
+            }
+        } catch (e: any) {
+            console.log(e.response?.data?.message);
+        } finally {
+            this.setLoading(false);
+        }
+    }
+    async loginBarber(phoneNumber: string, password: string) {
+        try {
+            const response = await BarberAuthService.login(phoneNumber, password);
+            if (response.data.barber) {
+                this.setAuth(true);
+                this.setUser(response.data.barber);
+            }
+            if (response.data.token) {
+                window.localStorage.setItem('barberToken', response.data.token)
+            }
+        } catch (e: any) {
+            console.log(e.response?.data?.message);
+        }
+    }
+    async registrationBarber(data: FormData) {
+        try {
+            const response = await BarberAuthService.registration(data);
+            console.log(response)
+            if (response.data.barber) {
+                this.setAuth(true);
+                this.setUser(response.data.barber);
+                if (response.data.token) {
+                    window.localStorage.setItem('barberToken', response.data.token)
+                }
+            }
+        } catch (e: any) {
+            console.log(e.response?.data?.message);
+        }
+    }
+   
+    async checkAuthBarber() {
+        this.setLoading(true);
+        try {
+            console.log('BABAbui')
+            const response = await BarberAuthService.checkAuth();
+            if (response.data.barber) {
+                this.setAuth(true);
+                this.setUser(response.data.barber);
+                if (response.data.token) {
+                    window.localStorage.setItem('barberToken', response.data.token)
+                }
+            } else {
+                localStorage.removeItem('barberToken');
+                this.setAuth(false);
+                this.setUser({} as IBarber);
+                this.setToken(null);
             }
         } catch (e: any) {
             console.log(e.response?.data?.message);

@@ -1,13 +1,12 @@
 import { observer } from "mobx-react-lite";
 import { useState, useEffect, FunctionComponent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useContext } from 'react';
-import { Context } from '../../index';
 import FormInput from "../../comon/ui/FormInput/FormInput";
 import DoButton from '../../comon/ui/DoButton/DoButton';
+import { useStore } from "../../hooks/useStore";
 
 const RegisterForm: FunctionComponent = () => {
-    const { store } = useContext(Context)
+    const { store } = useStore()
     const [userSurname, setSurname] = useState<string>('')
     const [userName, setName] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -24,7 +23,7 @@ const RegisterForm: FunctionComponent = () => {
     const handleSubmit = () => {
         try {
             if (password == submitPassword) {
-                store.auth.registration(fullName, password, phoneNumber);
+                store.auth.registrationUser(fullName, password, phoneNumber);
                 setName('')
                 setSurname('')
                 setPassword('')

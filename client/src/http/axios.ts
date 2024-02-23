@@ -1,13 +1,20 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL: 'http://localhost:3008/api',
-    validateStatus: () => true,
+  baseURL: 'http://localhost:3009/api',
+  validateStatus: () => true,
 })
 
 instance.interceptors.request.use((config) => {
-    config.headers.Authorization = window.localStorage.getItem('token')
-    return config
+  const userToken = window.localStorage.getItem('userToken');
+  const barberToken = window.localStorage.getItem('barberToken');
+  if (userToken) {
+    config.headers.Authorization = userToken;
+  }
+  else if (barberToken) {
+    config.headers.Authorization = barberToken;
+  }
+  return config;
 })
 
 export default instance
