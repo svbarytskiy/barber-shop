@@ -1,9 +1,10 @@
 import LinkButton from "../../comon/ui/LinkButton/LinkButton"
+import MainPageCapacity from "../../modules/MainPageCapacity/MainPageCapacity"
 
 export const MainPage = () => {
     return (
         <>
-            <LinkButton linkPath={"/selectBarber"} buttonText={"Зареєструватись на стрижку"} ></LinkButton>
+            <MainPageCapacity></MainPageCapacity>
         </>
     )
 }

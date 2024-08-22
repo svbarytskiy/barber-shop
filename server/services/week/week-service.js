@@ -20,6 +20,7 @@ class WeekService {
 
         const endDate = new Date(startDate.getTime());
         endDate.setDate(startDate.getDate() + 6);
+        endDate.setHours(23, 58, 0, 0)
 
         const number = lastWeek ? lastWeek.number + 1 : 1;
 
@@ -40,13 +41,14 @@ class WeekService {
         var day = d.getDay(),
             diff = day === 0 ? -6 : 1 - day; // виправлено: перенесення на понеділок
         d.setDate(d.getDate() + diff);
-        d.setHours(0, 0, 0, 0); // Обнулення часу
+        d.setHours(0, 0, 0, 0); // Обнулення часу до першої хвилини понеділка
         return d;
     }
-
+    
     async getNextMonday(date) {
         const resultDate = new Date(date.getTime());
         resultDate.setDate(resultDate.getDate() + ((1 + 7 - resultDate.getDay()) % 7 || 7));
+        resultDate.setHours(0, 0, -2, 0); // Налаштування часу на 2 хвилини до наступного понеділка
         return resultDate;
     }
 
@@ -102,19 +104,17 @@ class WeekService {
 
     async getWeeks(barberId) {
         const today = new Date();
-        console.log('chipi')
         // Оновлюємо статус тижнів на "archived", де endDate < today
+        const endOfDay = new Date(today.setHours(23, 59, 59, 999));
         await Week.updateMany(
-            { barberId: barberId, endDate: { $lt: today }, status: 'active' },
+            { barberId: barberId, endDate: { $lte: endOfDay }, status: 'active' },
             { $set: { status: 'archived' } }
         );
-        console.log('chipi')
         // Знаходимо всі активні тижні
         const activeWeeks = await Week.find({ barberId: barberId, status: 'active' });
         if (!activeWeeks.length) {
-            return 'No weeks';
+            return {message: 'No weeks'};
         }
-        console.log('chipi')
         // Підготовка DTO для кожного тижня
         const weeks = await Promise.all(activeWeeks.map(async week => {
             // Знаходимо всі дні цього тижня

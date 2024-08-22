@@ -2,7 +2,7 @@ export interface ISlot {
     id: string,
     date: Date,
     dayId: string,
-    clientId: string,
+    clientNum: string,
     barberId: string,
     service: string,
     slotStatus: string

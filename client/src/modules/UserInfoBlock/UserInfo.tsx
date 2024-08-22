@@ -8,17 +8,20 @@ const UserInfo = () => {
     const { store } = useContext(Context)
     const userInfo = store.auth.user;
     return (
-        <div className='rounded-lg p-4 bg-gray-500'>
-            <h1 className='text-xx text-white text-center m-30'>Особистий кабінет</h1>
-            <div className='flex-column justify-between items-center pt-2'>
-                <div className='text-x text-white opacity-50'>
-                    Ваше ім'я: {userInfo.username}
+        <div className='px-4 py-2 bg-gray-100 fixed w-full top-[84px]'>
+            {/* <h1 className='text-4xl text-gray-900 text-center '>Personal Cabinet</h1> */}
+            <div className="flex ">
+                <div className='flex-column justify-between items-center pt-2'>
+                    <div className='text-xl text-gray-900'>
+                        Your Name: {userInfo.username}
+                    </div>
+                    <div className='text-xl text-gray-900'>
+                        Your Number: {userInfo.phoneNumber}
+                    </div>
                 </div>
-                <div className='text-x text-white opacity-50'>
-                    Ваш номер: {userInfo.phoneNumber}
-                </div>
+                <LinkButton className='border-2 border-gray-900 ml-auto' buttonText='Edit information' linkPath={`edit`} />
             </div>
-            <LinkButton buttonText='Редагувати Інформацію' linkPath={`edit`} />
+
         </div>
     )
 }

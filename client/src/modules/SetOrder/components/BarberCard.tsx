@@ -20,18 +20,24 @@ interface BarberCardProps {
 
 export const BarberCard: FC<BarberCardProps> = ({ barberName, image, options, phoneNumber, barberId, orderService }) => {
     return (
-        <div className="rounded p-4 border h-[600px] w-[400px] overflow-hidden"> {/* Додано класи для розмірів */}
-            <img className="rounded mb-2 w-full h-1/2 object-cover" src={`http://localhost:3009/static/${phoneNumber}/${image}`} alt={image?.name} /> {/* Оновлено стилі зображення */}
-            <div className="text-gray-400 text-xl my-2 ">{barberName}</div>
-            <ul className="grid grid-cols-2 gap-2 overflow-auto mb-10"> {/* Додано overflow-auto для прокрутки, якщо вміст не вміщується */}
-                {options.haircut && <ServiceItem label="Стрижка волосся" />}
-                {options.hairDyeing && <ServiceItem label="Фарбування волосся" />}
-                {options.pedicure && <ServiceItem label="Педикюр ніг" />}
-                {options.manicure && <ServiceItem label="Манікюр рук" />}
-                {options.hairExtension && <ServiceItem label="Нарощування волосся" />}
-                {options.hairStyling && <ServiceItem label="Укладка волосся" />}
-            </ul>
-            <LinkButton linkPath={`/selectDate/:${barberId}/:${orderService}`} buttonText={"Select barber"}></LinkButton>
+        <div className="rounded-lg p-4 border h-[600px] w-[400px] overflow-hidden flex flex-col">
+            <img className="rounded mb-2 w-full h-1/2 object-cover" src={`http://localhost:3009/static/${phoneNumber}/${image}`} alt={image?.name} />
+            <div className="text-gray-900 text-xl my-2 font-bold">{barberName}</div>
+            <p className="mt-2 ml-3 mb-3">Position: Trainee</p>
+            <div className="flex-grow mb-2 overflow-auto">
+                <ul className="grid grid-cols-2 gap-2">
+                    {options.haircut && <ServiceItem label="Стрижка волосся" />}
+                    {options.hairDyeing && <ServiceItem label="Фарбування волосся" />}
+                    {options.pedicure && <ServiceItem label="Педикюр ніг" />}
+                    {options.manicure && <ServiceItem label="Манікюр рук" />}
+                    {options.hairExtension && <ServiceItem label="Нарощування волосся" />}
+                    {options.hairStyling && <ServiceItem label="Укладка волосся" />}
+                </ul>
+            </div>
+            <div className="mx-3">
+                <LinkButton linkPath={`/setOrder/:${barberId}/:${orderService}`} buttonText={"Select barber"} />
+            </div>
         </div>
+
     )
 }

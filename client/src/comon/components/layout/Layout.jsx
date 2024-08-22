@@ -5,11 +5,11 @@ import { Footer } from './Footer'
 export const Layout = ({ children }) => {
     return (
         <>
-            <div className='container mx-auto'>
-                <Navbar />
+            <Navbar />
+            <div className='mx-auto min-h-screen mt-[84px]'>
                 {children}
-                <Footer />
             </div>
+            <Footer />
         </>
     )
 }

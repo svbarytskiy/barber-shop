@@ -7,8 +7,8 @@ const SlotSchema = new mongoose.Schema(
             required: true,
         },
         dayId: { type: mongoose.Types.ObjectId, ref: 'Day' },
-        clientId: { type: mongoose.Types.ObjectId, ref: 'User', default: null },
-        barberId: { type: mongoose.Types.ObjectId, ref: 'Barber'},
+        clientNum: { type: String, default: '' },
+        barberId: { type: mongoose.Types.ObjectId, ref: 'Barber' },
         service: {
             type: String,
             required: true, default: 'None'

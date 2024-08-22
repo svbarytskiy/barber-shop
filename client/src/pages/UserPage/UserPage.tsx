@@ -3,7 +3,7 @@ import UserMail from '../../modules/UserMail/UserMail'
 export const UserPage = () => {
     return (
         <>
-            <UserInfo />
+            {/* <UserInfo /> */}
             <UserMail />
         </>
     )

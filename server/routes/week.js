@@ -12,5 +12,5 @@ router.get('/getDays/:id', checkAuth, WeekController.getValidDays)
 
 router.get('/getSlots/:barberId/:dayId', checkAuth, WeekController.getValidSlots)
 
-router.put('/updateWeek/:id', checkAuth, WeekController.updateSlots)
+router.put('/updateSlots', checkAuth, WeekController.updateSlots)
 export default router

@@ -5,8 +5,8 @@ interface ServiceItemProps {
 }
 
 const ServiceItem: React.FC<ServiceItemProps> = ({ label }) => (
-    <div className="rounded-lg bg-gray-600 border border-gray-300 p-2">
-        <li className="text-xx text-center text-gray-400">{label}</li>
+    <div className="rounded-lg bg-blue-300 border border-blue-300 p-2">
+        <li className="text-xx text-center text-gray-900">{label}</li>
     </div>
 );
 

@@ -4,7 +4,7 @@ export interface IDay {
     id: string,
     date: Date,
     dayName: string,
-    slots?: ISlot[],
+    slots: ISlot[],
     weekId: string
     isDayOff: boolean
 }

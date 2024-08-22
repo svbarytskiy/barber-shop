@@ -85,9 +85,16 @@ class MessageService {
             if (!msg) {
                 throw new Error('Повідомлення не знайдено');
             }
+            //ПОФІКСЬ ЦЮ ПАРАШУ МАЙБУТНІЙ Я, БО МЕНІ ЛІНЬ, БІГОМ!!!!
+            console.log(receiverId)
+            let client = await User.findById(receiverId)
+            if (!client) {
+                client = await Barber.findById(receiverId)
+            }
+            console.log(client)
             const setSlot = await Slot.findOneAndUpdate(
                 { date: msg.time },
-                { clientId: receiverId, service: msg.service, slotStatus: 'unAvailable' },
+                { clientNum: client.phoneNumber, service: msg.service, slotStatus: 'Unavailable' },
                 { new: true }
             );
             if (!setSlot) {

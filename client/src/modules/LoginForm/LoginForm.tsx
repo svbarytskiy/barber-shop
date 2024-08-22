@@ -28,16 +28,16 @@ const LoginForm: FunctionComponent = () => {
     return (
         <form
             onSubmit={(e) => e.preventDefault()}
-            className='w-1/4 h-60 mx-auto mt-40'
+            className='w-[500px] h-[400px] mx-auto mt-40 rounded-xl bg-white border-gray-900 border-2 flex flex-col py-10 items-center'
         >
-            <h1 className='text-lg text-white text-center'>Авторизация</h1>
+            <h1 className='text-4xl text-grey-900 text-center mb-5'>Login</h1>
             <FormInput labelText='Phone Number:' inputPlaceholder='Phone Number...' inputType='text' inputValue={phoneNumber} setValue={setPhoneNumber} />
             <FormInput labelText='Password:' inputPlaceholder='Password...' inputType='password' inputValue={password} setValue={setPassword} />
             <div className='flex gap-8 justify-center mt-4'>
-                <DoButton buttonText='Войти' buttonType='submit' callbackHandler={handleSubmit} />
+                <DoButton buttonText='Log in' buttonType='submit' callbackHandler={handleSubmit} />
                 <Link
                     to='/register'
-                    className='flex justify-center items-center text-xs text-white'
+                    className='flex justify-center items-center text-lg text-grey-900'
                 >
                     Нет аккаунта ?
                 </Link>

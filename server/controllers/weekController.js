@@ -45,8 +45,8 @@ class WeekController {
 
     async updateSlots(req, res, next) {
         try {
-            const slots = req.slots;
-            const updatedSlots = await SlotService.getWeeks(slots);
+            const { updates } = req.body;
+            const updatedSlots = await SlotService.updateSlots(updates);
             return res.json(updatedSlots);
         } catch (e) {
             next(e);

@@ -1,5 +1,6 @@
 export default class SlotDto {
     barberId;
+    clientNum;
     id;
     dayId;
     slotStatus;
@@ -10,5 +11,6 @@ export default class SlotDto {
         this.id = model._id;
         this.slotStatus = model.slotStatus;
         this.date = model.date;
+        this.clientNum = model.clientNum;
     }
 }

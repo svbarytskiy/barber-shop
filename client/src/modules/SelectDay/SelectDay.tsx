@@ -21,9 +21,9 @@ export const SelectDay: FC = () => {
             <FormHeader headerText={"Виберіть день в який ви б хотіли зареєструватись на сеанс"} />
             {days.length > 0 ? (
                 <div className="grid grid-cols-3 gap-5">
-                    {days.map((day, index) => (
+                    {/* {days.map((day, index) => (
                         <DayBoxItem key={index} dayName={day.dayName} date={day.date} id={day.id} />
-                    ))}
+                    ))} */}
                 </div>
             ) : (
                 <div className="text-center mt-5 text-lg text-gray-500">

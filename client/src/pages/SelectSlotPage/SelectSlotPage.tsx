@@ -16,7 +16,7 @@ export const SelectSlotPage: FC = () => {
     const slots = store.session.slots || [];
     return (
         <div className="">
-            <div className="text-xl text-gray-500 my-4">Виберіть день в який ви б хотіл  записатися на сеанс</div>
+            {/* <div className="text-xl text-gray-500 my-4">Виберіть день в який ви б хотіл  записатися на сеанс</div>
             {slots.length > 0 ? (
                 <div className="grid grid-cols-4 gap-4">
                     {slots.map((slot, index) => (
@@ -27,7 +27,7 @@ export const SelectSlotPage: FC = () => {
                 <div className="text-gray-300 text-2xl text-center my-20">
                     Вільних слотів немає. Виберіть інший день або іншого барбера
                 </div>
-            )}
+            )} */}
         </div>
     )
 }

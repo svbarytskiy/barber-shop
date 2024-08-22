@@ -2,6 +2,8 @@ import { makeAutoObservable } from 'mobx';
 import { IWeek } from '../../../models/IWeek';
 import weekService from '../../services/weekService';
 import { IDay } from '../../../models/IDay';
+import { ISlot } from '../../../models/ISlot';
+import dayService from '../../services/dayService';
 
 export default class ScheduleStore {
     weeks: IWeek[] = [];
@@ -41,6 +43,20 @@ export default class ScheduleStore {
             if (response.data) {
                 console.log(response.data.weeks)
                 this.setWeeks(response.data.weeks)
+            }
+        } catch (e: any) {
+            console.log(e.response?.data?.message);
+        } finally {
+            this.setLoading(false);
+        }
+    }
+
+    async updateDay(updates: Array<Partial<ISlot>>) {
+        this.setLoading(true);
+        try {
+            const response = await dayService.updateDay(updates)
+            if (response.data) {
+                return (response.data.message)
             }
         } catch (e: any) {
             console.log(e.response?.data?.message);

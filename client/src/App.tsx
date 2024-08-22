@@ -13,6 +13,7 @@ import BarberLoginPage from './pages/BarberLoginPage/BarberLoginPage';
 import { BarberSchedulePage } from './pages/BarberSchedulePage/BarberSchedulePage';
 import { SelectDatePage } from './pages/SelectDatePage/SelectDatePage';
 import { SelectSlotPage } from './pages/SelectSlotPage/SelectSlotPage';
+import { OrderPage } from './pages/OrderPage/OrderPage';
 
 function App() {
   const { store } = useStore();
@@ -42,6 +43,7 @@ function App() {
           <Route path='/selectBarber' element={<SelectBarberPage />} />
           <Route path='/selectDate/:barberId/:service' element={<SelectDatePage />} />
           <Route path='/selectDate/:barberId/:service/selectSlot/:dayId' element={<SelectSlotPage />} />
+          <Route path='/setOrder/:barberId/:service' element={<OrderPage />} />
         </Routes>
       </Layout>
     </Router>

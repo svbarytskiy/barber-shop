@@ -5,17 +5,17 @@ import SlotDto from '../../dtos/slot-dto.js'
 import mongoose from 'mongoose'
 
 class SlotService {
-    async updateSlots() {
+    async updateSlots(slots) {
         try {
             const updates = slots.map(slot => ({
                 updateOne: {
                     filter: { _id: slot.id },
-                    update: { $set: { status: slot.status, date: new Date(slot.date), service: slot.service } }
+                    update: { $set: { slotStatus: slot.slotStatus, service: slot.service, clientNum: slot.clientNum } }
                 }
             }));
 
             await Slot.bulkWrite(updates);
-
+            console.log('bababui')
             return ({ message: 'Slots updated successfully.' })
         } catch (error) {
             console.error('Failed to update slots:', error);
