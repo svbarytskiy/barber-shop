@@ -8,12 +8,12 @@ import FourthBlock from "./components/FourthBlock";
 
 const MainPageCapacity: FC = () => {
     return (
-        <>
+        <main>
             <FirstBlock />
             <SecondBlock />
             <ThirdBlock />
             <FourthBlock />
-        </>
+        </main>
     );
 }
 

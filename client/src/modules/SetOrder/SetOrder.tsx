@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react";
-import MySelect, { Option } from "../../comon/ui/MySelect/MySelect";
 import { useStore } from "../../hooks/useStore";
 import { BarberCard } from "./components/BarberCard";
 import { IBarber, IService } from "../../models/IBarber";
@@ -7,7 +6,7 @@ import CustomCheckbox from "../../comon/ui/CustomCheckBox/CustomCheckBox";
 import SearchBar from "../../comon/ui/SearchBar/SearchBar";
 
 export const SetOrder: FC = () => {
-    const serviceOptions: Option[] = [
+    const serviceOptions = [
         { value: "haircut", label: "Стрижка волосся" },
         { value: "hairDyeing", label: "Фарбування волосся" },
         { value: "pedicure", label: "Педикюр" },
