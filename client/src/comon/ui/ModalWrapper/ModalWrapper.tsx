@@ -27,7 +27,7 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
     }
 
     return ReactDOM.createPortal(
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" onClick={onClose}>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20	" onClick={onClose}>
             <div onClick={e => e.stopPropagation()} className="bg-white p-4 rounded-md overflow-auto max-w-3xl max-h-full">
                 {children}
             </div>

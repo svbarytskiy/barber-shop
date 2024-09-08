@@ -1,0 +1,10 @@
+[
+    { "title": "Hairdying", "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit.", "price": "100$" },
+    { "title": "Haircut", "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit.", "price": "70$" },
+    { "title": "Hairdying", "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit.", "price": "35$" },
+    { "title": "Hairdying", "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit.", "price": "60$" },
+    { "title": "Hairdying", "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit.", "price": "120$" },
+    { "title": "Hairdying", "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit.", "price": "45$" },
+    { "title": "Hairdying", "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit.", "price": "20$" },
+    { "title": "Hairdying", "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit.", "price": "65$" }
+]

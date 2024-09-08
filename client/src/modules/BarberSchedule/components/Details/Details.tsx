@@ -37,7 +37,7 @@ const Details: FC<DetailsProps> = ({
 
 
     return (
-        <div className="min-w-[320px] rounded-xl bg-blue-200 flex-grow p-7 flex flex-col">
+        <aside className="min-w-[320px] rounded-xl bg-blue-200 flex-grow p-7 flex flex-col">
             <div className="flex-grow">
                 <h1 className="text-5xl mb-4">Details</h1>
                 <TimeInput time={time} />
@@ -60,7 +60,7 @@ const Details: FC<DetailsProps> = ({
                 onCancel={onCancel}
                 onSave={onSave}
             />
-        </div>
+        </aside>
     );
     };
 
