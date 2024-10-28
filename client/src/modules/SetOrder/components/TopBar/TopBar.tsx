@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import OneInRow from "../../ui/OneInRow";
 import ThreeInRow from "../../ui/ThreeInRow";
 import TwoInRow from "../../ui/TwoInRow";
@@ -6,28 +6,29 @@ import TwoInRow from "../../ui/TwoInRow";
 interface TopBarProps {
     selectedService: string[]; // Вибрані сервіси
     handleMapOptionChange: (option: string) => void;
+    mapOption: string;
+    isSmallScreen: boolean; // Додатковий пропс для визначення розміру екрану
 }
 
-const TopBar: FC<TopBarProps> = ({ selectedService, handleMapOptionChange }) => {
-    const [activeOption, setActiveOption] = useState<string>("two"); // Вибрана опція
-
+const TopBar: FC<TopBarProps> = ({ selectedService, handleMapOptionChange, mapOption, isSmallScreen }) => {
     const handleOptionClick = (option: string) => {
-        setActiveOption(option);
         handleMapOptionChange(option); // Передача вибраної опції у батьківський компонент
     };
 
     return (
-        <div className="p-5 bg-white rounded-xl w-full ml-6 border mb-5 flex justify-between items-center">
+        <div className="p-5 bg-white rounded-xl mb-3 w-full border lg:mb-5 flex justify-between items-center">
             {selectedService.length > 0 && (
-                <div className="text-gray-900 text-xl">
+                <div className="text-sm text-gray-900 md:text-lg lg:text-xl">
                     Selected services: {selectedService.join(", ")}
                 </div>
             )}
-            <div className="flex space-x-3 ml-auto">
-                <OneInRow isActive={activeOption === "one"} onClick={() => handleOptionClick("one")} />
-                <TwoInRow isActive={activeOption === "two"} onClick={() => handleOptionClick("two")} />
-                <ThreeInRow isActive={activeOption === "three"} onClick={() => handleOptionClick("three")} />
-            </div>
+            {!isSmallScreen && (
+                <div className="flex space-x-3 ml-auto">
+                    <OneInRow isActive={mapOption === "one"} onClick={() => handleOptionClick("one")} />
+                    <TwoInRow isActive={mapOption === "two"} onClick={() => handleOptionClick("two")} />
+                    <ThreeInRow isActive={mapOption === "three"} onClick={() => handleOptionClick("three")} />
+                </div>
+            )}
         </div>
     );
 };

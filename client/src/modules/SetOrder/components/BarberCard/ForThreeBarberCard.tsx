@@ -6,8 +6,6 @@ interface BarberCardProps {
     barberName: string;
     image: File;
     barberId: string;
-    orderService: string;
-
 }
 
 export const ForThreeBarberCard: FC<BarberCardProps> = ({
@@ -15,25 +13,26 @@ export const ForThreeBarberCard: FC<BarberCardProps> = ({
     image,
     phoneNumber,
     barberId,
-    orderService,
 }) => {
     return (
-        <article className="rounded-lg  border  w-full overflow-hidden flex bg-white ml-10 p-5 flex-col items-center justify-center" >
+        <article className="rounded-lg border w-full overflow-hidden flex bg-white p-5 flex-col items-center justify-center">
             <img
-                className="rounded-full mb-2 w-[150px] h-[150px] object-cover p-2"
+                className="rounded-full mb-2 w-[100px] h-[100px] md:w-[150px] md:h-[150px] object-cover p-2"
                 src={`http://localhost:3009/static/${phoneNumber}/${image}`}
                 alt={`Photo of ${barberName}`}
             />
-            <div className="ml-3 w-full flex flex-col justify-between">
-                <h2 className="text-gray-900 text-xl font-bold text-center">{barberName}</h2>
+            <div className="w-full flex flex-col items-center">
+                <h2 className="text-gray-900 text-lg md:text-xl font-bold text-center truncate w-full">
+                    {barberName}
+                </h2>
                 <LinkButton
-                    linkPath={`/setOrder/${barberId}/${orderService}`}
+                    linkPath={`/setOrder/${barberId}`}
                     buttonText="Select barber"
                     className="mt-5 mx-auto"
                 />
             </div>
-        </article >
+        </article>
     );
 };
 
-export default ForThreeBarberCard
+export default ForThreeBarberCard;

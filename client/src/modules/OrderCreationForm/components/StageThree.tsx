@@ -1,88 +1,69 @@
-import { FC, useEffect, useState } from "react";
-import { store } from "../../..";
-import { useParams } from "react-router-dom";
-import { useStore } from "../../../hooks/useStore";
-import { TextareaWithTemplate } from "../../SetOrderModal/components/TextareaWithTemplate";
-import { observer } from "mobx-react-lite";
+import React, { FC, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useStore } from '../../../hooks/useStore';
+import { observer } from 'mobx-react-lite';
+import ServiceItem from '../ui/ServiceItem/ServiceItem';
+import { IBarber } from '../../../models/IBarber';
+import LoadingSpinner from '../../../comon/ui/LoadingSpinner/LoadingSpinner';
 
 interface StageThreeProps {
+    onNext: (service: string) => void;
     onPrev: () => void;
-    onNext: () => void;
-    selectedDate: Date | null;
+    selectedDayId: string | null;
 }
 
-export const StageThree: FC<StageThreeProps> = ({ onPrev, onNext, selectedDate }) => {
-    const formattedDate = selectedDate
-        ? new Date(selectedDate).toLocaleString('uk-UA', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-        })
-        : 'No date selected';
-
-    const [requestText, setRequestText] = useState<string>("");
+export const StageThree: FC<StageThreeProps> = ({ onNext, onPrev, selectedDayId }) => {
     const { store } = useStore();
     const { barberId } = useParams<{ barberId: string }>();
-    const { service } = useParams<{ service: string }>();
-    const sender = store.auth.user.id;
-    const [localBarber, setLocalBarber] = useState<any>(null);
+    const [barber, setBarber] = useState<IBarber>();
 
     useEffect(() => {
-        if (barberId && service && selectedDate) {
-            const formattedBarberId = barberId.replace(":", "");
-            let foundBarber = store.barber.barbers.find(b => b.id === formattedBarberId);
-            if (!foundBarber) {
-                store.barber.getAllBarbers()
-                foundBarber = store.barber.barbers.find(b => b.id === formattedBarberId);
-            }
-            if (foundBarber) {
-                setLocalBarber(foundBarber);
-                const template = `Шановний ${foundBarber.username}, я б хотів записатися на ${service} на ${formattedDate}. Прошу прийняти мій запит.`;
-                setRequestText(template);
-            }
+        if (barberId && selectedDayId) {
+            const foundBarber = store.barber.barbers.find(barber => barber.id === barberId);
+            setBarber(foundBarber);
         }
-    }, [barberId, store.barber.barbers, service, selectedDate]);
+    }, [barberId, selectedDayId, store.barber.barbers]);
 
-    const sendRequest = () => {
-        if (service && localBarber && barberId && selectedDate) {
-            const formattedBarberId = barberId.replace(":", "");
-            const formattedService = service.replace(":", "");
-            store.message.createRequest(sender, formattedService, selectedDate, requestText, formattedBarberId);
+    useEffect(() => {
+        if (!barber) {
+            // Якщо не знайдено перукаря або послуг, можна запустити повторний запит
+            store.barber.getAllBarbers();  // Цей метод має виконувати запит до сервера
         }
-        onNext()
-    };
+    }, [barber, barberId, store.barber]);
+
+    // Фільтруємо тільки ті сервіси, що доступні (true)
+    const availableServices = barber ? Object.entries(barber.services)
+        .filter(([service, isAvailable]) => isAvailable === true)  // Перевіряємо значення на true
+        .map(([service]) => service)  // Отримуємо лише назву сервісу
+        : [];
 
     return (
-        <div>
-            <h2 className="text-2xl font-semibold mb-4">Stage 3: Payment Information</h2>
-            <p className="text-grey-900 text-xl my-5">Your selected date: <strong>{formattedDate}</strong></p>
-            <div className="max-h-[300px]">
-                <div className="text-lg mb-4">Service: <strong>{service}</strong> </div>
-                <div className="text-lg mb-4">Barber: <strong>{localBarber?.username ?? "Барбер не знайдений"}</strong></div>
-                {localBarber && (
-                    <TextareaWithTemplate
-                        barberName={localBarber.username}
-                        date={formattedDate}
-                        service={service ?? ''}
-                        onUpdateText={setRequestText}
-                        template={requestText}
-                    />
-                )}
-            </div>
-            <div className="flex justify-end mt-5">
+        <div className='h-full max-h-[410px] sm:max-h-[480px] flex flex-col justify-between'>
+            <h2 className="text-xl sm:text-3xl my-5 text-gray-900">Choose a Service</h2>
+            {store.session.isLoading ? (
+                <div className="flex justify-center items-center h-full w-full">
+                    <LoadingSpinner />
+                </div>
+            ) : store.session.slots.length > 0 ? (
+                <div className='grid grid-cols-2 gap-4'>
+                    {availableServices.length > 0 ? (
+                        availableServices.map((service, index) => (
+                            <ServiceItem
+                                key={index}
+                                service={service}
+                                onClick={() => onNext(service)}
+                            />
+                        ))
+                    ) : (
+                        <div className="text-center text-xl h-full w-full">No Services</div>
+                    )}
+                </div>
+            ) : (
+                <div>No available slots</div>
+            )}
+            <div className="flex justify-start mt-auto">
                 <button
-                    className="p-2 text-xl rounded bg-gray-900 transition text-white hover:bg-gray-800"
-                    onClick={sendRequest}
-                >
-                    Send Request
-                </button>
-            </div>
-            <div className="mt-5">
-                <button
-                    className="p-2 text-xl rounded bg-blue-500 text-white"
+                    className="p-2 text-base sm:text-xl rounded bg-blue-500 text-white"
                     onClick={onPrev}
                 >
                     Back
@@ -92,4 +73,4 @@ export const StageThree: FC<StageThreeProps> = ({ onPrev, onNext, selectedDate }
     );
 };
 
-export default observer(StageThree)
+export default observer(StageThree);

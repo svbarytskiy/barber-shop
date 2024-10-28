@@ -69,7 +69,7 @@ const UserMail: FC = () => {
                             </div>
                         ))}</div>
                 </div>
-                <div className=' flex-column w-full justify-between items-center pt-2 bg-white min-h-[600px] p-10 flex-grow '>
+                <div className=' flex-column w-full justify-between items-center pt-2 min-h-[600px] p-10 flex-grow '>
                     <div className="text-5xl w-full text-gray-900 pl-10 rounded-xl bg-blue-100 py-4">{selectedOption}</div>
                     <div className="bg-blue-100 h-full rounded-xl p-5 mt-4 relative ">
                         {filteredMsgs.length > 0 ? (

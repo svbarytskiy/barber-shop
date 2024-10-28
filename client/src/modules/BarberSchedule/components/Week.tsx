@@ -56,7 +56,7 @@ export const Week: FC<WeekProps> = observer(({ days, number }) => {
                         <div
                             key={day.id}
                             onClick={() => toggleDay(day.dayName)}
-                            className={`cursor-pointer text-sm mr-2 p-3 rounded-full ${selectedDay == day.dayName ? 'bg-blue-200' : 'bg-gray-200'} transition-colors`}
+                            className={`cursor-pointer text-lg mr-2 overflow-hidden truncate p-3 rounded-full ${selectedDay == day.dayName ? 'bg-blue-200' : 'bg-gray-200'} transition-colors`}
                         >
                             {day.dayName}, {formatDate(day.date)}
                         </div>

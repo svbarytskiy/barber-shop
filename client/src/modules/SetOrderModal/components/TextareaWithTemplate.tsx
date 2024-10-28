@@ -20,7 +20,7 @@ export const TextareaWithTemplate: FC<TextareaWithTemplateProps> = ({template, b
 
     return (
         <textarea
-            className="w-full text-lg h-[150px] p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            className="w-full text-base sm:text-lg h-[150px] p-2 sm:p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             value={text}
             onChange={handleChange}
         ></textarea>

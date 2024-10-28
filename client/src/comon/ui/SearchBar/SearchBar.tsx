@@ -15,7 +15,7 @@ const SearchBar: FC<SearchBarProps> = ({ placeholder = 'Search...', onSearch }) 
     };
 
     return (
-        <div className="flex items-center w-full max-w-md p-2 bg-white border rounded-lg shadow-md">
+        <div className="flex items-center w-full max-w-md p-2 bg-white border rounded-lg">
             <input
                 type="text"
                 value={searchQuery}

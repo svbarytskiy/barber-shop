@@ -41,7 +41,7 @@ const SelectAccordion: FC<SelectAccordionProps> = ({ children, defaultText, clas
         className="w-full flex justify-around items-center px-4 py-2 bg-white text-gray-900 rounded-full focus:outline-none"
         onClick={toggleDropdown}
       >
-        <span className='text-lg text-blue-300'>{selectedOption || defaultText}</span>
+        <span className='text-base sm:text-lg text-blue-300'>{selectedOption || defaultText}</span>
         <span
           className={`text-blue-200 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'
             }`}

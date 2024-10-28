@@ -22,7 +22,7 @@ const NavItem: FC<{ name: string; path: string }> = ({ name, path }) => (
 
 const Footer: FC = () => {
     return (
-        <footer className=" w-full bg-blue-100">
+        <footer className="w-full bg-blue-100">
             <div className="px-1 py-5 container mx-auto flex items-center justify-between sm:p-5">
                 <Logo size="" />
                 <nav className="hidden md:flex gap-6">
@@ -31,7 +31,7 @@ const Footer: FC = () => {
                     ))}
                 </nav>
                 <button
-                    className="px-4 py-2 bg-white text-gray-900 rounded-full focus:outline-none sm:hidden"
+                    className="px-4 py-2 bg-white text-base text-blue-100 rounded-full focus:outline-none sm:hidden"
                 >About us
                 </button>
             </div>

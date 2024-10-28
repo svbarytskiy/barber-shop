@@ -48,7 +48,7 @@ export const MailItem: FC<MailItemProps> = ({
 
 
   return (
-    <div onClick={() => setExpanded(true)} className={`w-full  transition rounded-xl flex border cursor-pointer hover:bg-blue-300 mt-3 p-3 ${isViewed ? 'bg-blue-300' : 'bg-blue-200'}  ${expanded ? 'flex-col h-4/6 absolute h-5/6 top-5 w-[calc(100%-41px)]	' : ''}`}>
+    <div onClick={() => setExpanded(true)} className={`w-full  transition rounded-xl flex border cursor-pointer hover:bg-blue-300 mt-3 p-3 ${isViewed ? 'bg-blue-300' : 'bg-blue-200'}  ${expanded ? 'flex-col h-4/6 absolute h-5/6 top-5 w-5/6' : ''}`}>
       <div className="w-16 h-16 bg-blue-500 rounded-full mb-2 mr-4"></div>
       <div className="">
         <div className="text-3xl">From {sender.id}</div>

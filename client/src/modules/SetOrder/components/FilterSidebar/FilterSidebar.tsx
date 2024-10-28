@@ -1,33 +1,33 @@
-import { observer } from "mobx-react-lite";
 import { FC } from "react";
+import { observer } from "mobx-react-lite";
 import CustomCheckbox from "../../../../comon/ui/CustomCheckBox/CustomCheckBox";
 import SearchBar from "../../../../comon/ui/SearchBar/SearchBar";
+import { useSearchParams } from "react-router-dom";
+import CollapsibleSection from "../../../../comon/ui/CollapsibleSection/CollapsibleSection";
+
+interface Service {
+    id: string;
+    label: string;
+}
 
 interface FilterSidebarProps {
+    services: Service[];
     handleSearch: (query: string) => void;
     handleCheckboxChange: (checked: boolean, id: string) => void;
 }
 
-const services = [
-    { id: "haircut", label: "Haircut" },
-    { id: "manicure", label: "Manicure" },
-    { id: "hairdying", label: "Hairdying" },
-    { id: "pedicure", label: "Pedicure" },
-    { id: "hairExtension", label: "Hair Extension" },
-    { id: "hairStyling", label: "Hair Styling" }
-];
+const FilterSidebar: FC<FilterSidebarProps> = ({ handleSearch, handleCheckboxChange, services }) => {
+    const [searchParams] = useSearchParams();
 
-const FilterSidebar: FC<FilterSidebarProps> = ({ handleSearch, handleCheckboxChange }) => {
     const onSearchInputChange = (query: string) => {
-        handleSearch(query); // Pass the query string directly
+        handleSearch(query);
     };
 
     return (
-        <aside className="w-1/3 rounded-xl bg-white h-full max-h-[700px] p-7 border-2 shadow-lg">
+        <aside className="p-5 sm:p-7 lg:w-1/3 rounded-xl bg-white h-full max-h-[700px] border">
             <SearchBar placeholder="Search by name..." onSearch={onSearchInputChange} />
-            <section className="border-b-2 w-full mt-5">
-                <h2 className="text-gray-900 text-xl font-bold">Select service</h2>
-                <fieldset className="ml-5">
+            <CollapsibleSection title="Select service">
+                <fieldset className="ml-5 mt-2">
                     <legend className="sr-only">Service options</legend>
                     {services.map((service) => (
                         <CustomCheckbox
@@ -35,10 +35,12 @@ const FilterSidebar: FC<FilterSidebarProps> = ({ handleSearch, handleCheckboxCha
                             id={service.id}
                             label={service.label}
                             onChange={handleCheckboxChange}
+                            // Check the checkbox if the corresponding URL parameter is true
+                            checked={searchParams.get(service.id) === 'true'}
                         />
                     ))}
                 </fieldset>
-            </section>
+            </CollapsibleSection>
         </aside>
     );
 };
