@@ -1,14 +1,14 @@
 import React from 'react'
 import Navbar from './Navbar'
-import { Footer } from './Footer'
+import Footer from './Footer'
 
 export const Layout = ({ children }) => {
     return (
         <>
             <Navbar />
-            <div className='mx-auto min-h-screen mt-[84px]'>
+            <main className='mx-auto min-h-screen mt-[80px] container mx-auto'>
                 {children}
-            </div>
+            </main>
             <Footer />
         </>
     )

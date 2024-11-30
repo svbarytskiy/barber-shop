@@ -58,6 +58,7 @@ export default class SessionStore {
             this.setLoading(false);
         }
     }
+    
     async getValidSlots(barberId: string, dayId: string) {
         this.setLoading(true);
         try {

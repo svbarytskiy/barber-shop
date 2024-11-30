@@ -20,7 +20,7 @@ export const AcceptRequestModal: FC<AcceptRequestModalProps> = ({ date, msgId, s
     useEffect(() => {
         if (service) {
             template = `Шановний ${receiverId}, я записав вас на ${date} на ${service} очікую вас на сеансі.`;
-            setRequestText(template); // Встановлення тексту за замовчуванням
+            setRequestText(template); 
         }
     }, [receiverId, service, date]);
     const acceptRequest = async () => {

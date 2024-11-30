@@ -19,7 +19,7 @@ export const DeclineRequestModal: FC<DeclineRequestModalProps> = ({date, msgId, 
     useEffect(() => {
         if (service) {
             template = `Шановний ${receiverId}, я не можу записати вас на ${date} на ${service}, будь ласка виберіть інший час або іншого барбера, пробачте за незрчності.`;
-            setRequestText(template); // Встановлення тексту за замовчуванням
+            setRequestText(template); 
         }
     }, [receiverId, service, date]);
     const declineRequest = async () => {

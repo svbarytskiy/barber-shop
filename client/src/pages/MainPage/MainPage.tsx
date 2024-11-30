@@ -4,7 +4,7 @@ import MainPageCapacity from "../../modules/MainPageCapacity/MainPageCapacity"
 export const MainPage = () => {
     return (
         <>
-            <MainPageCapacity></MainPageCapacity>
+            <MainPageCapacity />
         </>
     )
 }

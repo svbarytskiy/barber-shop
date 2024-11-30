@@ -59,9 +59,7 @@ const SecondModalForm: FC<SecondModalFormProps> = ({ phoneNumber, barberName, op
             formData.append('hairStyling', String(newHairStyling));
             if (newImage) {
                 formData.append('image', newImage);
-            } else {
-                console.log('ррррррррррррррр')
-            }
+            } 
             await store.barber.updateBarber(formData, id)
             CloseModal()
             store.barber.getAllBarbers()

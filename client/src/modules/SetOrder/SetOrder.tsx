@@ -1,97 +1,159 @@
 import { FC, useEffect, useState } from "react";
-import MySelect, { Option } from "../../comon/ui/MySelect/MySelect";
 import { useStore } from "../../hooks/useStore";
-import { BarberCard } from "./components/BarberCard";
 import { IBarber, IService } from "../../models/IBarber";
-import CustomCheckbox from "../../comon/ui/CustomCheckBox/CustomCheckBox";
-import SearchBar from "../../comon/ui/SearchBar/SearchBar";
+import FilterSidebar from "./components/FilterSidebar/FilterSidebar";
+import TopBar from "./components/TopBar/TopBar";
+import LoadingSpinner from "../../comon/ui/LoadingSpinner/LoadingSpinner";
+import { observer } from "mobx-react-lite";
+import { useSearchParams } from "react-router-dom";
+import Pagination from "./components/Pagination/Pagination";
+import BarbersMap from "./components/BarbersMap/BarbersMap";
 
-export const SetOrder: FC = () => {
-    const serviceOptions: Option[] = [
-        { value: "haircut", label: "Стрижка волосся" },
-        { value: "hairDyeing", label: "Фарбування волосся" },
-        { value: "pedicure", label: "Педикюр" },
-        { value: "manicure", label: "Манікюр" },
-        { value: "hairExtension", label: "Нарощування волосся" },
-        { value: "hairStyling", label: "Укладка волосся" },
-    ];
-    const [selectedService, setSelectedService] = useState<string>("haircut");
-    const { store } = useStore(); // Припускаємо, що useStore() повертає тип, який містить store.barber.barbers
-    const [isChecked, setIsChecked] = useState(false);
-    useEffect(() => {
-        store.barber.getAllBarbers();
-    }, [store.barber]);
-
+const SetOrder: FC = () => {
+    const { store } = useStore();
+    const [mapOption, setMapOption] = useState<string>("two");
+    const [searchQuery, setSearchQuery] = useState<string>("");
     const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: boolean }>({});
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [itemsPerPage, setItemsPerPage] = useState<number>(6);
+    const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
+
+    const services = [
+        { id: "haircut", label: "Haircut" },
+        { id: "manicure", label: "Manicure" },
+        { id: "hairdying", label: "Hairdying" },
+        { id: "pedicure", label: "Pedicure" },
+        { id: "hairExtension", label: "Hair Extension" },
+        { id: "hairStyling", label: "Hair Styling" }
+    ];
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth < 640);
+        };
+
+        handleResize(); 
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (store.barber.barbers.length === 0) {
+            store.barber.getAllBarbers();
+        }
+
+        const mapOptionParam = searchParams.get("m");
+        if (mapOptionParam) {
+            setMapOption(mapOptionParam);
+            if (mapOptionParam === "one") {
+                setItemsPerPage(4);
+                setCurrentPage(1);
+            } else if (mapOptionParam === "two") {
+                setItemsPerPage(6);
+                setCurrentPage(1);
+            } else if (mapOptionParam === "three") {
+                setItemsPerPage(9);
+                setCurrentPage(1);
+            }
+        } else {
+            if (!searchParams.get("m")) {
+                const newSearchParams = new URLSearchParams(searchParams);
+                newSearchParams.set("m", "two");
+                setSearchParams(newSearchParams);
+                setMapOption("two");
+            }
+        }
+    }, [store.barber, searchParams]);
+
+    useEffect(() => {
+        const initialSelectedOptions: { [key: string]: boolean } = {};
+        services.forEach(service => {
+            if (searchParams.get(service.id) === 'true') {
+                initialSelectedOptions[service.id] = true;
+            }
+        });
+        setSelectedOptions(initialSelectedOptions);
+    }, [searchParams]);
 
     const handleCheckboxChange = (checked: boolean, id: string) => {
         setSelectedOptions((prev) => ({
             ...prev,
             [id]: checked,
         }));
+
+        const newSearchParams = new URLSearchParams(searchParams);
+        if (checked) {
+            newSearchParams.set(id, 'true');
+        } else {
+            newSearchParams.delete(id);
+        }
+        setSearchParams(newSearchParams);
     };
-    const filteredBarbers = store.barber.barbers.filter((barber: IBarber) => barber.services[selectedService as keyof IService]);
-    const [results, setResults] = useState<string[]>([]);
 
     const handleSearch = (query: string) => {
-
+        setCurrentPage(1)
+        setSearchQuery(query);
     };
 
+    const handleMapOptionChange = (option: string) => {
+        if (!isSmallScreen) {
+            setMapOption(option);
+            const newSearchParams = new URLSearchParams(searchParams);
+            newSearchParams.set("m", option);
+            setSearchParams(newSearchParams);
+        }
+    };
+
+    const filteredBarbers = store.barber.barbers.filter((barber: IBarber) => {
+        const matchesServices = Object.keys(selectedOptions).every((service) => {
+            return selectedOptions[service] ? barber.services[service as keyof IService] : true;
+        });
+        const matchesSearch = barber.username.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesServices && matchesSearch;
+    });
+
+    const selectedServicesArray = Object.keys(selectedOptions).filter((key) => selectedOptions[key]);
+
+    const lastCountryIndex = currentPage * itemsPerPage;
+    const firstCountryIndex = lastCountryIndex - itemsPerPage;
+    const paginatedBarbers = filteredBarbers.slice(firstCountryIndex, lastCountryIndex);
+    const onPaginate = (number: number) => setCurrentPage(number);
+
     return (
-        <section className="w-full flex  p-10">
-           <div className="w-1/3 rounded-xl bg-white min-h-[700px] p-7 border-2 border-grey-900 shadow-lg">
+        <section className="w-full flex flex-col lg:flex-row p-5 lg:p-10">
+            <FilterSidebar services={services} handleSearch={handleSearch} handleCheckboxChange={handleCheckboxChange} />
+            <div className="w-full lg:ml-3 mt-5 lg:mt-0 lg-ml-10">
+                <TopBar
+                    isSmallScreen={isSmallScreen}
+                    mapOption={isSmallScreen ? "one" : mapOption}
+                    selectedService={selectedServicesArray}
+                    handleMapOptionChange={isSmallScreen ? () => { } : handleMapOptionChange}
+                />
 
-                <SearchBar placeholder="Search items..." onSearch={handleSearch} />
-
-
-                <div className="borser-b-2 w-full mt-5">
-                    <p className="text-grey-900 text-xl font-bold	">Set srvice</p>
-                    <div className="ml-5">
-                        <CustomCheckbox id="serv1" label="Haircut" onChange={handleCheckboxChange} />
-                        <CustomCheckbox id="serv2" label="Manicure" onChange={handleCheckboxChange} />
-                        <CustomCheckbox id="serv3" label="Hairdying" onChange={handleCheckboxChange} />
-                        <CustomCheckbox id="serv4" label="Pedicure" onChange={handleCheckboxChange} />
-                        <CustomCheckbox id="serv5" label="Hair dyeing" onChange={handleCheckboxChange} />
-                        <CustomCheckbox id="serv6" label="Hair styling" onChange={handleCheckboxChange} />
+                {store.barber.isLoading ? (
+                    <div className="flex justify-center items-center h-full">
+                        <LoadingSpinner />
                     </div>
-                </div>
-                <div className="">
-                    <p className="text-grey-900 text-xl font-bold	">Position</p>
-                    <div className="ml-5">
-                        <CustomCheckbox id="option1" label="Trainee" onChange={handleCheckboxChange} />
-                        <CustomCheckbox id="option2" label="Barber" onChange={handleCheckboxChange} />
-                        <CustomCheckbox id="option3" label="Senior Barber" onChange={handleCheckboxChange} />
-                    </div>
-                </div>
-            </div>
-            <div className="w-full">
-                {selectedService && <div className="text-gray-900 text-lg mb-5 ml-6">You select: {selectedService}</div>}
-                {filteredBarbers.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-items-center">
-                        {filteredBarbers.map((barber) => (
-                            <BarberCard
-                                key={barber.id}
-                                phoneNumber={barber.phoneNumber}
-                                barberName={barber.username}
-                                options={barber.services}
-                                image={barber.image}
-                                barberId={barber.id}
-                                orderService={selectedService}
-                            />
-                        ))}
-                    </div>
-
                 ) : (
-                    <div className="w-full mx-auto flex flex-col items-center">
-                        <div
-                            className="my-10 w-full max-w-[400px] h-[250px] bg-contain bg-no-repeat bg-center relative"
-                            style={{ backgroundImage: `url('/assets/josukani.png')` }}
-                        ></div>
-                        <p className="my-10 w-full text-2xl text-grey-900 text-center">Немає доступних барберів.</p>
-                    </div>
+                    <>
+                        <BarbersMap mapOption={isSmallScreen ? "one" : mapOption} paginatedBarbers={paginatedBarbers} />
+                        {filteredBarbers.length > itemsPerPage ? (
+                            <Pagination
+                                currentPage={currentPage}
+                                onPaginate={onPaginate}
+                                totalItems={filteredBarbers.length}
+                                itemsPerPage={itemsPerPage}
+                            />
+                        ) : null}
+                    </>
                 )}
-
             </div>
-        </section >
+        </section>
     );
 };
+
+export default observer(SetOrder);

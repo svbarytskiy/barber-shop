@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { FC, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import DoButton from "../../comon/ui/DoButton/DoButton";
 import FormInput from "../../comon/ui/FormInput/FormInput";
 import { useStore } from "../../hooks/useStore";
@@ -9,11 +9,16 @@ const BarberLoginForm: FC = () => {
     const { store } = useStore();
     const [password, setPassword] = useState<string>('')
     const [phoneNumber, setPhoneNumber] = useState<string>('')
+    const location = useLocation()
     const navigate = useNavigate()
     const isAuth = store.auth.isAuth;
 
+    const fromPage = location.state?.from 
+    ? location.state.from.pathname + location.state.from.search 
+    : "/";
+
     useEffect(() => {
-        if (isAuth) navigate('/')
+        if (isAuth) navigate(fromPage, { replace: true })
     }, [isAuth, navigate])
 
     const handleSubmit = () => {

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-
+//Add name and Number
 const MessageSchema = new mongoose.Schema(
     {
         sender: {

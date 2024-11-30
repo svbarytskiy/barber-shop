@@ -85,7 +85,7 @@ class MessageService {
             if (!msg) {
                 throw new Error('Повідомлення не знайдено');
             }
-            //ПОФІКСЬ ЦЮ ПАРАШУ МАЙБУТНІЙ Я, БО МЕНІ ЛІНЬ, БІГОМ!!!!
+            //Future me, fix this please
             console.log(receiverId)
             let client = await User.findById(receiverId)
             if (!client) {

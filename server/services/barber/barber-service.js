@@ -68,23 +68,16 @@ class BarberService {
 
         const updatePhoneNumberAndMoveFolder = async () => {
             const pastDirPath = path.join(__dirname, '../../', 'uploads', barber.phoneNumber);
-            console.log('Аааааа заберіть мене звідси я вже не можу 1');
         
             if (fs.existsSync(pastDirPath)) {
                 const newDirPath = path.join(__dirname, '../../', 'uploads', phoneNumber);
-        
-                console.log('Аааааа заберіть мене звідси я вже не можу 2');
-        
+           
                 try {
                     await fsPromises.access(newDirPath);
                 } catch (error) {
-                    // Папки не існує, створіть її
                     await fsPromises.mkdir(newDirPath, { recursive: true });
                 }
-        
-                console.log('Аааааа заберіть мене звідси я вже не можу 3');
-        
-                // Переміщення вмісту папки
+   
                 const files = await fsPromises.readdir(pastDirPath);
         
                 for (const file of files) {
@@ -93,11 +86,8 @@ class BarberService {
         
                     await fsPromises.rename(sourcePath, destinationPath);
                 }
-        
-                // Видалення порожньої вже попередньої папки
+                
                 await fsPromises.rmdir(pastDirPath);
-        
-                console.log('Якщо ти це бачиш, то експрес вирішив не творити суіцид');
             }
         
             barber.phoneNumber = phoneNumber;

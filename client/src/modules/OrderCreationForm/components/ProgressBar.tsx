@@ -10,10 +10,12 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ step }) => {
             case 1:
                 return '0%';
             case 2:
-                return '33%';
+                return '25%';
             case 3:
-                return '66%';
+                return '50%';
             case 4:
+                return '75%';
+            case 5:
                 return '100%';
 
             default:

@@ -3,17 +3,16 @@ import { FC, MouseEventHandler } from "react"
 interface DoButtonProps {
     buttonText: string;
     buttonType?: "button" | "submit" | "reset";
-    callbackHandler: MouseEventHandler<HTMLButtonElement>;
+    disabled?: boolean
+    callbackHandler?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const DoButton: FC<DoButtonProps> = ({ buttonText, buttonType, callbackHandler }) => {
+const DoButton: FC<DoButtonProps> = ({ buttonText, buttonType, callbackHandler, disabled }) => {
     return (
         <>
-            <div className='flex justify-center items-center text-lg text-white rounded-sm max-w-xs' >
-                <button type={buttonType} onClick={callbackHandler} className="max-w-xs w-full px-5 py-2 bg-gray-900 hover:bg-gray-800 text-white font-bold rounded">
-                    {buttonText}
-                </button>
-            </div>
+            <button disabled={disabled} type={buttonType} onClick={callbackHandler} className="max-w-xs px-5 py-2 bg-blue-500 hover:bg-gray-800 text-white font-bold rounded-full">
+                {buttonText}
+            </button>
         </>
     )
 }

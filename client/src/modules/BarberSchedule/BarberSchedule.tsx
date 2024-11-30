@@ -27,7 +27,6 @@ export const BarberSchedule: FC = observer(() => {
         console.log(selectedWeek)
         const matchingWeeks = weeks.filter(week => week.number === selectedWeek);
 
-        // Вивід слотів знайдених днів у консоль
         matchingWeeks.forEach(week => {
             console.log(`Days for ${week.number}:`, week.days);
         });
@@ -43,7 +42,6 @@ export const BarberSchedule: FC = observer(() => {
 
     return (
         <section className="w-full h-full flex-grow">
-            {/* <DoButton buttonText={"Create new week"} callbackHandler={() => handleOpenModal()} /> */}
             <Modal isOpen={isSettingModalOpen} onClose={closeModal}>
                 <CreateWeekModal id={id} closeModal={closeModal} />
             </Modal >

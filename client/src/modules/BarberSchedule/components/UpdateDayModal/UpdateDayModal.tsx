@@ -7,6 +7,7 @@ import { observer } from "mobx-react-lite";
 interface CreateWeekModalProps {
     updates: Array<Partial<ISlot>>
     closeModal: () => void
+    function: () => void
 }
 
 export const UpdateDayModal: FC<CreateWeekModalProps> = observer(({ closeModal, updates }) => {
@@ -37,9 +38,9 @@ export const UpdateDayModal: FC<CreateWeekModalProps> = observer(({ closeModal, 
             <button
                 onClick={!isLoading && responseMessage ? closeModal : updateDay}
                 className="rounded bg-gray-700 text-white p-3"
-                disabled={isLoading} // Додаємо атрибут disabled, коли завантаження триває
+                disabled={isLoading} 
             >
-                {isLoading ? "Закрити" : "Зберегти зміни"}
+                {responseMessage ? "Закрити" : "Зберегти зміни"}
             </button>
         </div>
     );

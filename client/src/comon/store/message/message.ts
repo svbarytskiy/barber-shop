@@ -37,10 +37,6 @@ export default class MessageStore {
     async getAllMsgs(id: string) {
         this.setLoading(true);
         try {
-            console.log('туп')
-            console.log(id)
-            console.log('туп')
-
             const response = await msgService.getMsgList(id)
             if (response.data) {
                 console.log(response.data.msgs)
