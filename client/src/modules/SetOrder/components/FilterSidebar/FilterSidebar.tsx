@@ -35,7 +35,6 @@ const FilterSidebar: FC<FilterSidebarProps> = ({ handleSearch, handleCheckboxCha
                             id={service.id}
                             label={service.label}
                             onChange={handleCheckboxChange}
-                            // Check the checkbox if the corresponding URL parameter is true
                             checked={searchParams.get(service.id) === 'true'}
                         />
                     ))}

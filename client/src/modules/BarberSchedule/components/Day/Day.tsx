@@ -4,7 +4,7 @@ import { Slot } from "../Slot/Slot";
 import { observer } from "mobx-react-lite";
 import Modal from "../../../../comon/ui/ModalWrapper/ModalWrapper";
 import { UpdateDayModal } from "../UpdateDayModal/UpdateDayModal";
-import Details from "../Details/Details"; // Import the Details component
+import Details from "../Details/Details"; 
 
 interface DayProps {
     id: string;
@@ -21,7 +21,7 @@ export const Day: FC<DayProps> = observer(({ date, dayName, slots, isDayOff }) =
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
     const [editedService, setEditedService] = useState<string>('');
     const [editedClientNumber, setEditedClientNumber] = useState<string>('');
-    const [resetTrigger, setResetTrigger] = useState<boolean>(false); // Додайте стан resetTrigger
+    const [resetTrigger, setResetTrigger] = useState<boolean>(false); 
 
     const selectedSlot = slots.find(slot => slot.id === selectedSlotId);
 
@@ -30,7 +30,7 @@ export const Day: FC<DayProps> = observer(({ date, dayName, slots, isDayOff }) =
         setIsEditing(false);
         setEditedService('');
         setEditedClientNumber('');
-        setResetTrigger(prev => !prev); // Оновіть resetTrigger при виборі слоту
+        setResetTrigger(prev => !prev);
     };
 
     const handleEditToggle = () => {
@@ -50,7 +50,7 @@ export const Day: FC<DayProps> = observer(({ date, dayName, slots, isDayOff }) =
         setEditedService(selectedSlot?.service || '');
         setEditedClientNumber(selectedSlot?.clientNum || '');
         setIsEditing(false);
-        setResetTrigger(prev => !prev); // Оновіть resetTrigger при скасуванні
+        setResetTrigger(prev => !prev);
     };
 
     const handleServiceChange = (service: string) => {
@@ -93,7 +93,7 @@ export const Day: FC<DayProps> = observer(({ date, dayName, slots, isDayOff }) =
                             onCancel={handleCancel}
                             onSave={handleSave}
                             onEditToggle={handleEditToggle}
-                            resetTrigger={resetTrigger} // Передайте resetTrigger
+                            resetTrigger={resetTrigger} 
                         />
                     </div>
                 )}

@@ -4,7 +4,6 @@ const NoItemsBlock: FC = () => {
     return (
         <>
             <div className="relative mx-auto flex flex-col items-center  rounded-lg p-10 min-h-[400px]">
-                {/* Унікальна форма фону для картинки */}
                 <div className="relative z-10 w-[200px] h-[200px] bg-blue-200 rounded-[40%_60%_50%_70%] shadow-xl overflow-hidden">
                     <img
                         src="/assets/josukani.png"

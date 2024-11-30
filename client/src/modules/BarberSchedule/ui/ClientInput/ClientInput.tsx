@@ -4,14 +4,14 @@ interface ClientInputProps {
     initialClientNum: string;
     onChange: (clientNum: string) => void;
     disabled: boolean;
-    resetTrigger: boolean;  // Add a prop to trigger reset
+    resetTrigger: boolean; 
 }
 
 const ClientInput: FC<ClientInputProps> = ({ initialClientNum, onChange, disabled, resetTrigger }) => {
     const [clientNum, setClientNum] = useState<string>(initialClientNum);
 
     useEffect(() => {
-        setClientNum(initialClientNum); // Reset the input when resetTrigger changes
+        setClientNum(initialClientNum); 
     }, [resetTrigger, initialClientNum]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -4,15 +4,15 @@ import ThreeInRow from "../../ui/ThreeInRow";
 import TwoInRow from "../../ui/TwoInRow";
 
 interface TopBarProps {
-    selectedService: string[]; // Вибрані сервіси
+    selectedService: string[]; 
     handleMapOptionChange: (option: string) => void;
     mapOption: string;
-    isSmallScreen: boolean; // Додатковий пропс для визначення розміру екрану
+    isSmallScreen: boolean; 
 }
 
 const TopBar: FC<TopBarProps> = ({ selectedService, handleMapOptionChange, mapOption, isSmallScreen }) => {
     const handleOptionClick = (option: string) => {
-        handleMapOptionChange(option); // Передача вибраної опції у батьківський компонент
+        handleMapOptionChange(option); 
     };
 
     return (

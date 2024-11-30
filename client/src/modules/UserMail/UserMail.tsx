@@ -21,7 +21,6 @@ const UserMail: FC = () => {
                 filtered = store.message.msgs.filter(msg => !msg.isViewed);
                 break;
             case "allMessages":
-                // No additional filtering needed
                 break;
             case "unrepliedMessages":
                 filtered = store.message.msgs.filter(msg => !msg.reply);

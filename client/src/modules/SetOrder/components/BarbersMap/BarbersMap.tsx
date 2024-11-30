@@ -11,7 +11,6 @@ interface BarbersMapProps {
 }
 
 const BarbersMap: FC<BarbersMapProps> = ({ mapOption, paginatedBarbers }) => {
-    // Determine the number of columns based on the mapOption
     const columns = mapOption === "one" ? 1 : mapOption === "two" ? 2 : 3;
 
     return (

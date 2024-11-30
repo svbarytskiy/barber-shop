@@ -14,8 +14,7 @@ interface MySelectProps {
 
 const MySelect: FC<MySelectProps> = ({ options, value, onChange, disabled }) => {
     const [isOpen, setIsOpen] = useState(false);
-
-    // Закриваємо меню при виборі опції
+ 
     useEffect(() => {
         if (isOpen) {
             const handleClickOutside = (event: MouseEvent) => {
@@ -31,7 +30,7 @@ const MySelect: FC<MySelectProps> = ({ options, value, onChange, disabled }) => 
 
     const handleOptionClick = (optionValue: string) => {
         onChange(optionValue);
-        setIsOpen(false); // Закриваємо меню при виборі
+        setIsOpen(false); 
     };
 
     return (

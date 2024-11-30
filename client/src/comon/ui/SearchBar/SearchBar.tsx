@@ -11,7 +11,7 @@ const SearchBar: FC<SearchBarProps> = ({ placeholder = 'Search...', onSearch }) 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value;
         setSearchQuery(query);
-        onSearch(query); // Call onSearch prop to handle search query
+        onSearch(query); 
     };
 
     return (

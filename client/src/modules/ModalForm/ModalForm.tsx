@@ -48,9 +48,7 @@ const ModalForm: FC = () => {
             formData.append('hairStyling', String(hairStyling));
             if (image) {
                 formData.append('image', image);
-            } else {
-                console.log('ррррррррррррррр')
-            }
+            } 
 
             await store.auth.registrationBarber(formData);
             closeModal();

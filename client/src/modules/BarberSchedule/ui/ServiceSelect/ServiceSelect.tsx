@@ -5,7 +5,7 @@ interface ServiceSelectProps {
     initialValue: string;
     onChange: (service: string) => void;
     disabled: boolean;
-    resetTrigger: boolean;  // Add a prop to trigger reset
+    resetTrigger: boolean;
 }
 
 const serviceOptions = [
@@ -21,7 +21,7 @@ const ServiceSelect: FC<ServiceSelectProps> = ({ initialValue, onChange, disable
     const [value, setValue] = useState<string>(initialValue);
 
     useEffect(() => {
-        setValue(initialValue); // Reset the select when resetTrigger changes
+        setValue(initialValue); 
     }, [resetTrigger, initialValue]);
 
     const handleSelectChange = (selectedValue: string) => {

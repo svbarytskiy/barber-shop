@@ -1,14 +1,14 @@
 import React, { FC, useState } from 'react';
 
 interface SliderProps {
-    items: any[]; // Replace any with the type that corresponds to your slots or days
+    items: any[];
     itemsPerPage: number;
-    rowsPerPage: number; // New prop for rows per page
+    rowsPerPage: number; 
     isAnimating: boolean;
     setIsAnimating: (animating: boolean) => void;
     onNextPage: () => void;
     onPrevPage: () => void;
-    renderItem: (item: any) => React.ReactNode; // Function to render individual items
+    renderItem: (item: any) => React.ReactNode;
 }
 
 const Slider: FC<SliderProps> = ({
@@ -51,12 +51,10 @@ const Slider: FC<SliderProps> = ({
 
     return (
         <div className="relative flex flex-col h-full overflow-hidden justify-between">
-            {/* Container for items with flex-grow */}
             <div className={`grid grid-cols-${itemsPerPage} grid-rows-${rowsPerPage} gap-2 sm:gap-4 transition-transform duration-300 transform ${isAnimating ? 'translate-x-full' : 'translate-x-0'}`}>
                 {paginatedItems.map(renderItem)}
             </div>
-
-            {/* Container for navigation buttons */}
+     
             <div className="flex justify-between py-4">
                 <button
                     className={`p-2 text-base sm:text-xl rounded ${currentPage === 1 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-500 text-white'}`}

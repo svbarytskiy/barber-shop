@@ -25,7 +25,7 @@ const GoBackButton: FC<GoBackButtonProps> = ({className}) => {
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth={2}
-          d="M15 19l-7-7 7-7"  /* Ліва частина стрілки */
+          d="M15 19l-7-7 7-7"  
         />
         <line
           x1="9" 

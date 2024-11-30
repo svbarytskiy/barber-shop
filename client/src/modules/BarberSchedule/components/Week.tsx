@@ -34,9 +34,9 @@ export const Week: FC<WeekProps> = observer(({ days, number }) => {
         const date = new Date(dateString);
         const day = date.getDate();
         const month = date.toLocaleString('en-US', { month: 'long' });
-        
+        //Create hook for this
         const daySuffix = (d: number) => {
-            if (d > 3 && d < 21) return 'th'; // special case for 11th-13th
+            if (d > 3 && d < 21) return 'th'; 
             switch (d % 10) {
                 case 1: return "st";
                 case 2: return "nd";

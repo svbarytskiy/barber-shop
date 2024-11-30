@@ -34,7 +34,7 @@ const RegisterForm: FunctionComponent = () => {
 
     const validateFields = (value: string) => {
         const hasCyrillic = /[а-яА-Я]/.test(value);
-        const isValid = /^[A-Z][a-z]{2,}$/.test(value); // Перевірка на першу велику букву та мінімум 2 символи
+        const isValid = /^[A-Z][a-z]{2,}$/.test(value); 
         if (hasCyrillic) return "Fields must not contain Cyrillic characters.";
         return isValid || "Must be like 'Jimmy Neitron'.";
     };

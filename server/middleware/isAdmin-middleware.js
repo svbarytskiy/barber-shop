@@ -18,19 +18,15 @@ export const isAdmin = async (req, res, next) => {
                 if (user && user.status === 'Admin') {
                     next();
                 } else {
-                    // Користувач не є адміністратором
                     throw new Error('User is not an admin');
                 }
             } else {
-                // Не вдалося розкодувати токен
                 throw new Error('Decoding error');
             }
         } catch (error) {
-            // Виникла помилка під час обробки токену або інша помилка
             return next(ApiError.UnauthorizedError());
         }
     } else {
-        // Відсутній токен
         return next(ApiError.UnauthorizedError());
     }
 };

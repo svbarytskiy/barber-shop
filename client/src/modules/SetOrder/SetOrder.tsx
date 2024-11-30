@@ -29,12 +29,11 @@ const SetOrder: FC = () => {
     ];
 
     useEffect(() => {
-        // Опреділяємо розмір екрану
         const handleResize = () => {
             setIsSmallScreen(window.innerWidth < 640);
         };
 
-        handleResize(); // Перевіряємо розмір екрану при монтуванні
+        handleResize(); 
         window.addEventListener("resize", handleResize);
 
         return () => {

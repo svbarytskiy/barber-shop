@@ -1,4 +1,3 @@
-// TimeInput.tsx
 import React, { FC } from "react";
 
 interface TimeInputProps {

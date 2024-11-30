@@ -22,7 +22,7 @@ export const StageFive: FC<StageFiveProps> = ({ onSubmit }) => {
                     Thank you for your order. We will process it shortly.
                 </p>
                 <Link 
-                    to="/" // Use the `to` prop to specify the route
+                    to="/" 
                     className="mt-6 text-xs px-2 py-1 md:px-6 py-2 md:text-lg bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 inline-block"
                 >
                     Return to Home 

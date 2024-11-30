@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Logo from "../../ui/Logo/Logo";
-import { NavLink } from "react-router-dom"; // імпорт NavLink для навігації
+import { NavLink } from "react-router-dom"; 
 
 const NAV_ITEMS = [
     { name: "main", path: "/" },

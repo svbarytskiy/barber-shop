@@ -20,7 +20,7 @@ const StageOne: FC<StageOneProps> = ({ onNext }) => {
     const handleResize = useCallback(() => {
         if (window.innerWidth < 640) {
             setItemsPerPage(2);
-            setRowsPerPage(3); // Змінено на 1 для менших екранів, можна налаштувати як потрібно
+            setRowsPerPage(3); 
         } else {
             setItemsPerPage(3);
             setRowsPerPage(2);
@@ -34,13 +34,10 @@ const StageOne: FC<StageOneProps> = ({ onNext }) => {
     }, [barberId, store.session]);
 
     useEffect(() => {
-        // Додати обробник подій resize
         window.addEventListener('resize', handleResize);
 
-        // Виконати перевірку при першому рендері
         handleResize();
 
-        // Видалити обробник подій при розмонтажі компонента
         return () => window.removeEventListener('resize', handleResize);
     }, [handleResize]);
 

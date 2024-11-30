@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import { useStore } from '../../hooks/useStore';
 
-// Мокаємо хук useStore
+
 jest.mock('../../hooks/useStore');
 const mockLoginUser = jest.fn();
 const mockStore = {
@@ -13,7 +13,7 @@ const mockStore = {
     },
 };
 
-// Мокаємо функцію navigate
+
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),

@@ -13,7 +13,7 @@ interface DetailsProps {
     onCancel: () => void;
     onSave: () => void;
     onEditToggle: () => void;
-    resetTrigger: boolean;  // Add reset trigger prop
+    resetTrigger: boolean;  
 }
 
 const Details: FC<DetailsProps> = ({
@@ -45,13 +45,13 @@ const Details: FC<DetailsProps> = ({
                     initialValue={selectedSlot?.service || ""}
                     onChange={onServiceChange}
                     disabled={!isEditing}
-                    resetTrigger={resetTrigger} // Pass reset trigger to ServiceSelect
+                    resetTrigger={resetTrigger} 
                 />
                 <ClientInput
                     initialClientNum={selectedSlot?.clientNum || ""}
                     onChange={onClientChange}
                     disabled={!isEditing}
-                    resetTrigger={resetTrigger} // Pass reset trigger to ClientInput
+                    resetTrigger={resetTrigger} 
                 />
             </div>
             <ActionButtons

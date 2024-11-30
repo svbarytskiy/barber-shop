@@ -11,13 +11,11 @@ import messageRoute from './routes/message.js'
 const app = express()
 dotenv.config()
 
-// Constants
 const PORT = process.env.PORT || 3005
 const DB_USER = process.env.DB_USER
 const DB_PASSWORD = process.env.DB_PASSWORD
 const DB_NAME = process.env.DB_NAME
 
-// Middleware
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true,
@@ -26,8 +24,6 @@ app.use(fileUpload())
 app.use(express.json())
 app.use('/static', express.static('uploads'));
 
-// Routes
-// http://localhost:3002
 app.use('/api/auth', authRoute)
 app.use('/api/barber', barberRoute)
 app.use('/api/week', weekRoute)

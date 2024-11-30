@@ -8,8 +8,6 @@ import GoBackButton from "./ui/goBackButton/goBackButton";
 import { StageFive } from "./components/StageFive";
 import { observer } from "mobx-react-lite";
 
-//тяжкі дії бажани забрати взаємодію з eventListner і window і нормально зверстати форму + адаптив
-
 const OrderCreationForm: FC = () => {
     const [step, setStep] = useState(1);
     const [selectedDayId, setSelectedDayId] = useState<string | null>(null);

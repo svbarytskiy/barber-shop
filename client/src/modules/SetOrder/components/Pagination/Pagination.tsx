@@ -14,11 +14,10 @@ const Pagination: FC<PaginationProps> = ({ totalItems, itemsPerPage, onPaginate,
         pageNumbers.push(i);
     }
 
-    // Логіка для вибору 5 елементів (або менше, якщо елементів менше ніж 5)
-    const start = Math.max(currentPage - 2, 1);  // Початок - 2 елементи до поточного
-    const end = Math.min(currentPage + 2, pageNumbers.length);  // Кінець - 2 елементи після поточного
+    const start = Math.max(currentPage - 2, 1);  
+    const end = Math.min(currentPage + 2, pageNumbers.length);  
 
-    const visiblePages = pageNumbers.slice(start - 1, end);  // Вибираємо тільки ці сторінки
+    const visiblePages = pageNumbers.slice(start - 1, end); 
 
     return (
         <section className="mx-auto flex justify-center gap-3 sm:gap-4 md:gap-6 mt-4 sm:mt-5">

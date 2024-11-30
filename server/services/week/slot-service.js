@@ -15,7 +15,6 @@ class SlotService {
             }));
 
             await Slot.bulkWrite(updates);
-            console.log('bababui')
             return ({ message: 'Slots updated successfully.' })
         } catch (error) {
             console.error('Failed to update slots:', error);
@@ -28,8 +27,8 @@ class SlotService {
         const formattedDayId = dayId.replace(":", "");
         try {
             const validSlots = await Slot.find({
-                barberId: new mongoose.Types.ObjectId(formattedBarberId), // Використання 'new' для створення ObjectId
-                dayId: new mongoose.Types.ObjectId(formattedDayId), // Використання 'new' для створення ObjectId
+                barberId: new mongoose.Types.ObjectId(formattedBarberId), 
+                dayId: new mongoose.Types.ObjectId(formattedDayId), 
                 date: { $gte: now },
                 slotStatus: 'Available'
             }).sort({ date: 1 });

@@ -26,15 +26,13 @@ export const StageThree: FC<StageThreeProps> = ({ onNext, onPrev, selectedDayId 
 
     useEffect(() => {
         if (!barber) {
-            // Якщо не знайдено перукаря або послуг, можна запустити повторний запит
-            store.barber.getAllBarbers();  // Цей метод має виконувати запит до сервера
+            store.barber.getAllBarbers(); 
         }
     }, [barber, barberId, store.barber]);
 
-    // Фільтруємо тільки ті сервіси, що доступні (true)
     const availableServices = barber ? Object.entries(barber.services)
-        .filter(([service, isAvailable]) => isAvailable === true)  // Перевіряємо значення на true
-        .map(([service]) => service)  // Отримуємо лише назву сервісу
+        .filter(([service, isAvailable]) => isAvailable === true)  
+        .map(([service]) => service)  
         : [];
 
     return (

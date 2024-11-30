@@ -24,9 +24,9 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       if (localStorage.getItem('userToken')) {
-        await store.auth.checkAuthUser();  // Await of user auth checking
+        await store.auth.checkAuthUser();  
       } else if (localStorage.getItem('barberToken')) {
-        await store.auth.checkAuthBarber();  // Await of barber auth checking
+        await store.auth.checkAuthBarber();  
       }
       setIsAuthChecked(true);
     };

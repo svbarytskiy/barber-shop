@@ -24,7 +24,6 @@ export default class ScheduleStore {
     async createWeek(selectedDays: string[], selectedHours: number[], id: string) {
         this.setLoading(true);
         try {
-            console.log('chipichipi')
             const response = await weekService.createWeek(selectedDays, selectedHours, id);
             console.log(response.data)
             if (response.data) {

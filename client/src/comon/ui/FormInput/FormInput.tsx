@@ -6,7 +6,7 @@ interface FormInputProps {
     inputType: string;
     inputPlaceholder: string;
     setValue: Dispatch<SetStateAction<string>>;
-    className?: string; // Додаємо пропс для додаткових класів
+    className?: string;
 }
 
 const FormInput: FC<FormInputProps> = ({ inputValue, labelText, inputType, inputPlaceholder, setValue, className = '' }) => {

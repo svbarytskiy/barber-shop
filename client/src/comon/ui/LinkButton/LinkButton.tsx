@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 interface LinkButtonProps {
     linkPath: string;
     buttonText: string;
-    className?: string; // Додатковий пропс для стилів
+    className?: string;
 }
 
 const LinkButton: FC<LinkButtonProps> = ({ linkPath, buttonText, className = '' }) => {
